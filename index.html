@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日本人の県外移動アニメーション</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #e2e8f0;
+      --accent: #1a73e8;
+      --inflow: #0f766e;
+      --outflow: #be123c;
+      --intl: #7c3aed;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 20px;
+    }
+    .wrap { max-width: 1160px; margin: 0 auto; }
+    .kicker {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+    }
+    h1 {
+      margin: 4px 0 6px;
+      font-size: clamp(20px, 3vw, 28px);
+    }
+    .honesty-badge {
+      display: inline-block;
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    main { padding: 16px 20px 32px; }
+    .controls {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn.active {
+      background: #0f172a;
+      color: #fff;
+      border-color: #0f172a;
+    }
+    .slider-box {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .slider-box input[type="range"] { flex: 1; }
+    .age-readout {
+      min-width: 96px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    #map-stage { width: 100%; min-height: 460px; position: relative; }
+    svg { width: 100%; height: auto; display: block; }
+    .pref-tile { cursor: pointer; stroke: #fff; stroke-width: 1.5; }
+    .pref-tile.selected { stroke: #0f172a; stroke-width: 2.8; }
+    .pref-label {
+      font-size: 10px;
+      font-weight: 700;
+      fill: #0f172a;
+      pointer-events: none;
+      text-anchor: middle;
+    }
+    .geo-pref { cursor: pointer; stroke: #fff; stroke-width: 0.8; }
+    .geo-pref.selected { stroke: #0f172a; stroke-width: 2.4; }
+    .geo-label, .overseas-label {
+      font-size: 9px;
+      font-weight: 700;
+      fill: #0f172a;
+      pointer-events: none;
+      text-anchor: middle;
+    }
+    .flow-arc { fill: none; stroke-linecap: round; opacity: 0.72; pointer-events: none; }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: middle; margin-right: 4px; }
+    h2 { margin: 0 0 8px; font-size: 17px; }
+    h3 { margin: 14px 0 6px; font-size: 14px; color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 6px 4px; border-bottom: 1px solid var(--line); text-align: left; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .notice {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #92400e;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      margin-bottom: 12px;
+      display: none;
+    }
+    .note { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
+    footer {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 20px 32px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    footer p { margin: 0 0 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="kicker">『統計で読む日本』特別編</div>
+      <h1>日本人の県外移動アニメーション</h1>
+      <span class="honesty-badge">
+        実測値のみ・補間なし（年齢5歳階級・2024年・視覚遷移0.8秒）
+      </span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="data-notice" class="notice"></div>
+
+    <div class="controls">
+      <button id="play-btn" class="btn primary">▶ 再生</button>
+      <div class="slider-box">
+        <label for="age-slider" style="font-size:13px;font-weight:600;">年齢</label>
+        <input id="age-slider" type="range" min="0" max="17" step="1" value="4" />
+        <span id="age-label" class="age-readout">20～24歳</span>
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button id="mode-tile" class="btn active">タイル地図</button>
+        <button id="mode-geo" class="btn">地理地図</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;">
+          <h2 id="map-title">都道府県の転入超過・転出超過</h2>
+          <span id="year-badge" style="font-size:12px;color:var(--muted);">読み込み中...</span>
+        </div>
+        <div id="map-stage"></div>
+        <div class="legend">
+          <span><i class="swatch" style="background:var(--inflow);"></i>転入超過</span>
+          <span><i class="swatch" style="background:var(--outflow);"></i>転出超過</span>
+          <span><i class="swatch" style="background:var(--intl);"></i>48番目のノード「海外」</span>
+        </div>
+        <p class="note">年齢スライダーで切り替えると、都道府県の転入超過・転出超過と主な流れが変わります。数値は2024年の実測値で、滑らかに見せるための視覚遷移（0.8秒）のみを用いています。</p>
+      </section>
+
+      <aside class="panel">
+        <h2 id="detail-title">都道府県を選んでください</h2>
+        <p id="detail-summary" style="font-size:13px;color:var(--muted);margin:0 0 10px;">
+          地図の都道府県をクリックすると、その年齢階級の転入元・転出先トップ5と、居住者の5年前の常住地構成が表示されます。
+        </p>
+        <p id="intl-note" class="note" style="display:none;">海外との出入りは年齢別の公表がないため、全年代合計（2024年）です。</p>
+
+        <h3>転入元 トップ5（都道府県間）</h3>
+        <table><thead><tr><th>転入元</th><th class="num">人数</th></tr></thead><tbody id="inflow-body"></tbody></table>
+
+        <h3>転出先 トップ5（都道府県間）</h3>
+        <table><thead><tr><th>転出先</th><th class="num">人数</th></tr></thead><tbody id="outflow-body"></tbody></table>
+
+        <h3>海外との出入り（全年代合計）</h3>
+        <table><thead><tr><th>区分</th><th class="num">人数</th></tr></thead><tbody id="intl-body"></tbody></table>
+
+        <h3>5年前の常住地構成（2020年国勢調査）</h3>
+        <table><thead><tr><th>5年前の常住地</th><th class="num">割合</th></tr></thead><tbody id="prev-body"></tbody></table>
+        <p class="note">出生地別の公表集計がないため、5年前にどこに住んでいたかで代用しています。2020年調査では移動状況「不詳」が多く、参考値として併記しています。</p>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      <strong>出典</strong><br />
+      総務省統計局『住民基本台帳人口移動報告』年報（2024年）表3-1・表3-2・表3-3・表8-1・表8-2・表80（e-Stat）／
+      総務省統計局『国勢調査』（2020年）移動人口の男女・年齢等集計 第6表「5年前の常住都道府県、年齢（5歳階級）、男女別人口」（e-Stat）。<br />
+      数値はすべて実測値で、補間・推計はしていません。85歳以上は「85～89歳」と「90歳以上」の合計です。
+      年齢階級別数値の合計（2,523,239人）は公表の総数（2,523,249人）と10人異なります（年齢階級表に含まれない10人分）。
+    </p>
+    <p>
+      <strong>読み方の注意</strong><br />
+      転入超過は都道府県間の移動のみです。海外との出入りは年齢別の公表がないため、全年代合計（2024年）で表示しています。
+      居住者の出身構成は、国勢調査に出生地別人口の公表集計がないため、2020年国勢調査の「5年前の常住地別人口（原数値）」で代用しています。
+      都道府県の境界データは dataofjapan/land（japan.topojson）を利用しています。
+    </p>
+    <p>
+      <strong>制作</strong> SparkとMuseの共同制作（『統計で読む日本』特別編）<br />
+      データ生成・検算スクリプト: build_migration_data.py（e-Statの公開ファイルから生成・検算済み）
+    </p>
+  </footer>
+
+  <script>
+    const AGE_GROUPS = [
+      "0～4歳","5～9歳","10～14歳","15～19歳","20～24歳","25～29歳",
+      "30～34歳","35～39歳","40～44歳","45～49歳","50～54歳","55～59歳",
+      "60～64歳","65～69歳","70～74歳","75～79歳","80～84歳","85歳以上"
+    ];
+
+    // 47都道府県 + 48番目のノード「海外」のタイル座標 (col, row)
+    const TILE_COORDS = [
+      {code:"01",name:"北海道",short:"北海",col:13,row:0},{code:"02",name:"青森県",short:"青森",col:12,row:2},
+      {code:"03",name:"岩手県",short:"岩手",col:13,row:2},{code:"04",name:"宮城県",short:"宮城",col:13,row:3},
+      {code:"05",name:"秋田県",short:"秋田",col:12,row:3},{code:"06",name:"山形県",short:"山形",col:12,row:4},
+      {code:"07",name:"福島県",short:"福島",col:13,row:4},{code:"08",name:"茨城県",short:"茨城",col:13,row:5},
+      {code:"09",name:"栃木県",short:"栃木",col:12,row:5},{code:"10",name:"群馬県",short:"群馬",col:11,row:5},
+      {code:"11",name:"埼玉県",short:"埼玉",col:11,row:6},{code:"12",name:"千葉県",short:"千葉",col:13,row:6},
+      {code:"13",name:"東京都",short:"東京",col:12,row:6},{code:"14",name:"神奈川県",short:"神奈川",col:12,row:7},
+      {code:"15",name:"新潟県",short:"新潟",col:11,row:4},{code:"16",name:"富山県",short:"富山",col:10,row:4},
+      {code:"17",name:"石川県",short:"石川",col:9,row:4},{code:"18",name:"福井県",short:"福井",col:9,row:5},
+      {code:"19",name:"山梨県",short:"山梨",col:11,row:7},{code:"20",name:"長野県",short:"長野",col:10,row:5},
+      {code:"21",name:"岐阜県",short:"岐阜",col:10,row:6},{code:"22",name:"静岡県",short:"静岡",col:11,row:8},
+      {code:"23",name:"愛知県",short:"愛知",col:10,row:7},{code:"24",name:"三重県",short:"三重",col:9,row:7},
+      {code:"25",name:"滋賀県",short:"滋賀",col:9,row:6},{code:"26",name:"京都府",short:"京都",col:8,row:6},
+      {code:"27",name:"大阪府",short:"大阪",col:8,row:7},{code:"28",name:"兵庫県",short:"兵庫",col:7,row:6},
+      {code:"29",name:"奈良県",short:"奈良",col:8,row:8},{code:"30",name:"和歌山県",short:"和歌山",col:7,row:8},
+      {code:"31",name:"鳥取県",short:"鳥取",col:6,row:6},{code:"32",name:"島根県",short:"島根",col:5,row:6},
+      {code:"33",name:"岡山県",short:"岡山",col:6,row:7},{code:"34",name:"広島県",short:"広島",col:5,row:7},
+      {code:"35",name:"山口県",short:"山口",col:4,row:7},{code:"36",name:"徳島県",short:"徳島",col:6,row:9},
+      {code:"37",name:"香川県",short:"香川",col:6,row:8},{code:"38",name:"愛媛県",short:"愛媛",col:5,row:8},
+      {code:"39",name:"高知県",short:"高知",col:5,row:9},{code:"40",name:"福岡県",short:"福岡",col:3,row:7},
+      {code:"41",name:"佐賀県",short:"佐賀",col:2,row:7},{code:"42",name:"長崎県",short:"長崎",col:1,row:7},
+      {code:"43",name:"熊本県",short:"熊本",col:2,row:8},{code:"44",name:"大分県",short:"大分",col:3,row:8},
+      {code:"45",name:"宮崎県",short:"宮崎",col:3,row:9},{code:"46",name:"鹿児島県",short:"鹿児島",col:2,row:9},
+      {code:"47",name:"沖縄県",short:"沖縄",col:1,row:10},{code:"99",name:"海外",short:"海外",col:0,row:3}
+    ];
+
+    let appData = null;
+    let selectedCode = "13";
+    let ageIdx = 4;
+    let mapMode = "tile";
+    let timer = null;
+    let geoReady = false;
+    let geoLoading = false;
+    let geoCentroid = {};
+    let geoFeatures = [];
+
+    const svg = d3.select("#map-stage").append("svg").attr("viewBox", "0 0 640 480");
+    const flowLayer = svg.append("g");
+    const geoLayer = svg.append("g").style("display", "none");
+    const nodeLayer = svg.append("g");
+
+    function tilePos(d) {
+      return [d.col * 42 + 28, d.row * 40 + 28];
+    }
+
+    function nodePos(d) {
+      if (mapMode === "geo" && geoReady) {
+        if (d.code === "99") return [70, 430];
+        const c = geoCentroid[d.code];
+        if (c) return c;
+      }
+      return tilePos(d);
+    }
+
+    function colorScale(net) {
+      if (net === undefined || net === null) return "#e2e8f0";
+      if (net >= 0) return d3.interpolateBlues(Math.min(1, 0.25 + net / 40000));
+      return d3.interpolateReds(Math.min(1, 0.25 + Math.abs(net) / 15000));
+    }
+
+    function render() {
+      const ageName = AGE_GROUPS[ageIdx];
+      document.getElementById("age-label").textContent = ageName;
+      const ageData = appData?.byAge?.[ageName] || { net: {}, flows: [] };
+
+      nodeLayer.style("display", mapMode === "tile" ? null : "none");
+      geoLayer.style("display", mapMode === "geo" ? null : "none");
+
+      const tiles = nodeLayer.selectAll("g.node").data(TILE_COORDS, d => d.code);
+      const enter = tiles.enter().append("g").attr("class", "node")
+        .on("click", (_, d) => { selectedCode = d.code; render(); });
+
+      enter.append("rect").attr("class", "pref-tile").attr("width", 38).attr("height", 36).attr("rx", 6);
+      enter.append("text").attr("class", "pref-label").attr("x", 19).attr("y", 22).text(d => d.short);
+
+      const merged = enter.merge(tiles);
+      merged.transition().duration(800)
+        .attr("transform", d => {
+          const [x, y] = tilePos(d);
+          return `translate(${x - 19}, ${y - 18})`;
+        });
+
+      merged.select("rect")
+        .classed("selected", d => d.code === selectedCode)
+        .transition().duration(800)
+        .attr("fill", d => d.code === "99" ? "#ede9fe" : colorScale(ageData.net?.[d.code] || 0));
+
+      // 地理地図レイヤー（TopoJSON）
+      if (mapMode === "geo" && geoReady) {
+        const paths = geoLayer.selectAll("path.geo-pref").data(geoFeatures, d => d.properties.id);
+        const pathEnter = paths.enter().append("path").attr("class", "geo-pref")
+          .on("click", (_, d) => { selectedCode = String(d.properties.id).padStart(2, "0"); render(); });
+        pathEnter.append("title").text(d => d.properties.nam_ja);
+        pathEnter.merge(paths)
+          .classed("selected", d => String(d.properties.id).padStart(2, "0") === selectedCode)
+          .transition().duration(800)
+          .attr("d", d => d._pathD)
+          .attr("fill", d => colorScale(ageData.net?.[String(d.properties.id).padStart(2, "0")] || 0));
+        const labels = geoLayer.selectAll("text.geo-label").data(
+          geoFeatures.filter(d => d._area > 500), d => d.properties.id);
+        labels.enter().append("text").attr("class", "geo-label")
+          .merge(labels)
+          .transition().duration(800)
+          .attr("x", d => d._centroid[0])
+          .attr("y", d => d._centroid[1] + 3)
+          .text(d => {
+            const t = TILE_COORDS.find(x => x.code === String(d.properties.id).padStart(2, "0"));
+            return t ? t.short : "";
+          });
+        labels.exit().remove();
+        // 海外ノード（地理地図では左下に配置）
+        const overseas = geoLayer.selectAll("g.overseas").data(["99"]);
+        const ovEnter = overseas.enter().append("g").attr("class", "overseas")
+          .on("click", () => { selectedCode = "99"; render(); });
+        ovEnter.append("circle").attr("r", 22).attr("fill", "#ede9fe").attr("stroke", "#fff").attr("stroke-width", 1.5)
+          .classed("selected", false);
+        ovEnter.append("text").attr("class", "overseas-label").attr("y", 3).text("海外");
+        overseas.merge(ovEnter)
+          .attr("transform", "translate(70, 430)")
+          .select("circle")
+          .attr("stroke", selectedCode === "99" ? "#0f172a" : "#fff")
+          .attr("stroke-width", selectedCode === "99" ? 2.4 : 1.5);
+      } else {
+        geoLayer.selectAll("*").remove();
+      }
+
+      const flows = (ageData.flows || [])
+        .filter(f => f.from === selectedCode || f.to === selectedCode)
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 12);
+      const coordMap = new Map(TILE_COORDS.map(d => [d.code, nodePos(d)]));
+
+      const arcs = flowLayer.selectAll("path.flow-arc").data(flows, d => `${d.from}-${d.to}`);
+      arcs.exit().remove();
+      arcs.enter().append("path").attr("class", "flow-arc")
+        .merge(arcs)
+        .transition().duration(800)
+        .attr("stroke", d => (d.from === "99" || d.to === "99") ? "#7c3aed" : (d.to === selectedCode ? "#0f766e" : "#be123c"))
+        .attr("stroke-width", d => Math.max(1.5, Math.min(8, Math.sqrt(d.count || 0) / 14)))
+        .attr("d", d => {
+          const p1 = coordMap.get(d.from) || [30, 140];
+          const p2 = coordMap.get(d.to) || [300, 200];
+          const mx = (p1[0] + p2[0]) / 2;
+          const my = (p1[1] + p2[1]) / 2 - 28;
+          return `M${p1[0]},${p1[1]} Q${mx},${my} ${p2[0]},${p2[1]}`;
+        });
+
+      renderDetails(ageData);
+    }
+
+    function renderDetails(ageData) {
+      const target = TILE_COORDS.find(d => d.code === selectedCode);
+      const ageName = AGE_GROUPS[ageIdx];
+      document.getElementById("detail-title").textContent = `${target ? target.name : selectedCode}の${ageName}`;
+      const flows = ageData.flows || [];
+      const nameOf = c => TILE_COORDS.find(x => x.code === c)?.name || c;
+      const intl = appData?.intl || { in: {}, out: {} };
+      const isOverseas = selectedCode === "99";
+
+      document.getElementById("intl-note").style.display = isOverseas ? "block" : "none";
+
+      if (isOverseas) {
+        // 海外ノード：都道府県との出入り（全年代合計）をトップ5で表示
+        const inTop = Object.entries(intl.in).sort((a, b) => b[1] - a[1]).slice(0, 5);
+        const outTop = Object.entries(intl.out).sort((a, b) => b[1] - a[1]).slice(0, 5);
+        document.getElementById("detail-summary").textContent =
+          `国外からの転入 ${intl.totalIn?.toLocaleString() || "―"}人・国外への転出 ${intl.totalOut?.toLocaleString() || "―"}人（2024年・全年代合計・年齢別の公表なし）`;
+        document.getElementById("inflow-body").innerHTML = outTop.length
+          ? outTop.map(([c, n]) => `<tr><td>${nameOf(c)}</td><td class="num">${n.toLocaleString()}人</td></tr>`).join("")
+          : `<tr><td colspan="2" style="color:var(--muted);">データがありません</td></tr>`;
+        document.getElementById("outflow-body").innerHTML = inTop.length
+          ? inTop.map(([c, n]) => `<tr><td>${nameOf(c)}</td><td class="num">${n.toLocaleString()}人</td></tr>`).join("")
+          : `<tr><td colspan="2" style="color:var(--muted);">データがありません</td></tr>`;
+        document.getElementById("intl-body").innerHTML =
+          `<tr><td>国外からの転入（全国・全年代）</td><td class="num">${(intl.totalIn || 0).toLocaleString()}人</td></tr>` +
+          `<tr><td>国外への転出（全国・全年代）</td><td class="num">${(intl.totalOut || 0).toLocaleString()}人</td></tr>`;
+        document.getElementById("prev-body").innerHTML =
+          `<tr><td colspan="2" style="color:var(--muted);">「海外」に居住者の構成はありません</td></tr>`;
+        return;
+      }
+
+      const inflows = flows.filter(f => f.to === selectedCode).sort((a, b) => b.count - a.count).slice(0, 5);
+      const outflows = flows.filter(f => f.from === selectedCode).sort((a, b) => b.count - a.count).slice(0, 5);
+      const inTotal = flows.filter(f => f.to === selectedCode).reduce((s, f) => s + f.count, 0);
+      const outTotal = flows.filter(f => f.from === selectedCode).reduce((s, f) => s + f.count, 0);
+      const net = ageData.net?.[selectedCode] ?? 0;
+      document.getElementById("detail-summary").textContent =
+        `${net >= 0 ? "転入超過" : "転出超過"} ${Math.abs(net).toLocaleString()}人（都道府県間転入 ${inTotal.toLocaleString()}人・転出 ${outTotal.toLocaleString()}人）`;
+
+      document.getElementById("inflow-body").innerHTML = inflows.length
+        ? inflows.map(r => `<tr><td>${nameOf(r.from)}</td><td class="num">${r.count.toLocaleString()}人</td></tr>`).join("")
+        : `<tr><td colspan="2" style="color:var(--muted);">この年齢階級の転入はありません</td></tr>`;
+
+      document.getElementById("outflow-body").innerHTML = outflows.length
+        ? outflows.map(r => `<tr><td>${nameOf(r.to)}</td><td class="num">${r.count.toLocaleString()}人</td></tr>`).join("")
+        : `<tr><td colspan="2" style="color:var(--muted);">この年齢階級の転出はありません</td></tr>`;
+
+      document.getElementById("intl-body").innerHTML =
+        `<tr><td>国外からの転入（全年代合計）</td><td class="num">${(intl.in[selectedCode] || 0).toLocaleString()}人</td></tr>` +
+        `<tr><td>国外への転出（全年代合計）</td><td class="num">${(intl.out[selectedCode] || 0).toLocaleString()}人</td></tr>`;
+
+      const prev = appData?.prevResidence?.[selectedCode] || [];
+      document.getElementById("prev-body").innerHTML = prev.length
+        ? prev.map(r => `<tr><td>${r.label}</td><td class="num">${r.pct}%（${r.count.toLocaleString()}人）</td></tr>`).join("")
+        : `<tr><td colspan="2" style="color:var(--muted);">データがありません</td></tr>`;
+    }
+
+    function loadGeo() {
+      if (geoReady || geoLoading) return Promise.resolve(geoReady);
+      geoLoading = true;
+      return fetch("data/japan.topojson")
+        .then(r => { if (!r.ok) throw new Error("topojson not found"); return r.json(); })
+        .then(topo => {
+          const geojson = topojson.feature(topo, topo.objects.japan);
+          const projection = d3.geoMercator().fitSize([640, 480], geojson);
+          const path = d3.geoPath(projection);
+          geoFeatures = geojson.features.map(f => {
+            const code = String(f.properties.id).padStart(2, "0");
+            const centroid = path.centroid(f);
+            geoCentroid[code] = centroid;
+            return Object.assign({}, f, { _pathD: path(f), _centroid: centroid, _area: path.area(f) });
+          });
+          geoReady = true;
+          geoLoading = false;
+          return true;
+        })
+        .catch(err => {
+          geoLoading = false;
+          const notice = document.getElementById("data-notice");
+          notice.style.display = "block";
+          notice.textContent = "地理地図の境界データ（data/japan.topojson）を読み込めませんでした。タイル地図で表示しています。";
+          return false;
+        });
+    }
+
+    document.getElementById("age-slider").addEventListener("input", e => {
+      ageIdx = Number(e.target.value);
+      render();
+    });
+
+    document.getElementById("play-btn").addEventListener("click", () => {
+      const btn = document.getElementById("play-btn");
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+        btn.textContent = "▶ 再生";
+      } else {
+        btn.textContent = "■ 停止";
+        timer = setInterval(() => {
+          ageIdx = (ageIdx + 1) % AGE_GROUPS.length;
+          document.getElementById("age-slider").value = ageIdx;
+          render();
+        }, 1200);
+      }
+    });
+
+    document.getElementById("mode-tile").addEventListener("click", () => {
+      mapMode = "tile";
+      document.getElementById("mode-tile").classList.add("active");
+      document.getElementById("mode-geo").classList.remove("active");
+      render();
+    });
+    document.getElementById("mode-geo").addEventListener("click", () => {
+      loadGeo().then(ok => {
+        if (!ok) {
+          document.getElementById("mode-tile").classList.add("active");
+          document.getElementById("mode-geo").classList.remove("active");
+          return;
+        }
+        mapMode = "geo";
+        document.getElementById("mode-geo").classList.add("active");
+        document.getElementById("mode-tile").classList.remove("active");
+        render();
+      });
+    });
+
+    fetch("data/migration.json")
+      .then(r => { if (!r.ok) throw new Error("not found"); return r.json(); })
+      .then(json => {
+        appData = json;
+        document.getElementById("year-badge").textContent = `対象年次 ${json.meta?.targetYear || "―"}年（e-Stat・実測値）`;
+        render();
+      })
+      .catch(() => {
+        const notice = document.getElementById("data-notice");
+        notice.style.display = "block";
+        notice.textContent = "data/migration.json が見つかりません。build_migration_data.py を実行して e-Stat の実測データから生成してください。";
+        document.getElementById("year-badge").textContent = "対象年次: data/migration.json 未生成";
+        render();
+      });
+  </script>
+</body>
+</html>
