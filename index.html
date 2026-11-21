@@ -29,19 +29,16 @@
     header {
       background: var(--card);
       border-bottom: 1px solid var(--line);
-      padding: 16px 20px;
+      padding: 14px 20px;
     }
-    .wrap { max-width: 1160px; margin: 0 auto; }
+    .wrap { max-width: 1180px; margin: 0 auto; }
     .kicker {
       font-size: 12px;
       font-weight: 700;
       color: var(--accent);
       letter-spacing: 0.04em;
     }
-    h1 {
-      margin: 4px 0 6px;
-      font-size: clamp(20px, 3vw, 28px);
-    }
+    h1 { margin: 4px 0 6px; font-size: clamp(20px, 3vw, 28px); }
     .honesty-badge {
       display: inline-block;
       background: #eff6ff;
@@ -52,100 +49,7 @@
       font-size: 12px;
       font-weight: 600;
     }
-    main { padding: 16px 20px 32px; }
-    .controls {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px 18px;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-    .btn {
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--ink);
-      border-radius: 8px;
-      padding: 7px 14px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .btn.primary {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-    .btn.active {
-      background: #0f172a;
-      color: #fff;
-      border-color: #0f172a;
-    }
-    .slider-box {
-      flex: 1 1 260px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .slider-box input[type="range"] { flex: 1; }
-    .age-readout {
-      min-width: 96px;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: 1.45fr 1fr;
-      gap: 16px;
-    }
-    @media (max-width: 860px) {
-      .grid { grid-template-columns: 1fr; }
-    }
-    .panel {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 16px;
-    }
-    #map-stage { width: 100%; min-height: 460px; position: relative; }
-    svg { width: 100%; height: auto; display: block; }
-    .pref-tile { cursor: pointer; stroke: #fff; stroke-width: 1.5; }
-    .pref-tile.selected { stroke: #0f172a; stroke-width: 2.8; }
-    .pref-label {
-      font-size: 10px;
-      font-weight: 700;
-      fill: #0f172a;
-      pointer-events: none;
-      text-anchor: middle;
-    }
-    .geo-pref { cursor: pointer; stroke: #fff; stroke-width: 0.8; }
-    .geo-pref.selected { stroke: #0f172a; stroke-width: 2.4; }
-    .geo-label, .overseas-label {
-      font-size: 9px;
-      font-weight: 700;
-      fill: #0f172a;
-      pointer-events: none;
-      text-anchor: middle;
-    }
-    .flow-arc { fill: none; stroke-linecap: round; opacity: 0.72; pointer-events: none; }
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 8px;
-    }
-    .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: middle; margin-right: 4px; }
-    h2 { margin: 0 0 8px; font-size: 17px; }
-    h3 { margin: 14px 0 6px; font-size: 14px; color: var(--muted); }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th, td { padding: 6px 4px; border-bottom: 1px solid var(--line); text-align: left; }
-    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    main { padding: 14px 20px 28px; }
     .notice {
       background: #fffbeb;
       border: 1px solid #fde68a;
@@ -156,11 +60,113 @@
       margin-bottom: 12px;
       display: none;
     }
+    .controls {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 7px 13px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn.active { background: #0f172a; color: #fff; border-color: #0f172a; }
+    .slider-box {
+      flex: 1 1 240px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .slider-box input[type="range"] { flex: 1; }
+    .age-readout {
+      min-width: 94px;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .trend-banner {
+      background: #f1f5f9;
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 880px) { .grid { grid-template-columns: 1fr; } }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    #stage-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      min-height: 360px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    #map-svg, #flow-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    #flow-canvas { pointer-events: none; }
+    .boundary { fill: none; stroke: #cbd5e1; stroke-width: 0.8; pointer-events: none; }
+    .bubble { cursor: pointer; stroke: #ffffff; stroke-width: 1.5; fill-opacity: 0.84; }
+    .bubble.selected { stroke: #0f172a; stroke-width: 2.8; fill-opacity: 0.96; }
+    .tile-rect { cursor: pointer; stroke: #ffffff; stroke-width: 1.5; }
+    .tile-rect.selected { stroke: #0f172a; stroke-width: 2.8; }
+    .node-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      fill: #0f172a;
+      pointer-events: none;
+      text-anchor: middle;
+    }
+    .flow-arc { fill: none; stroke-linecap: round; pointer-events: none; }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+    .swatch { display: inline-block; width: 11px; height: 11px; border-radius: 50%; vertical-align: middle; margin-right: 4px; }
     .note { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
+    h2 { margin: 0 0 6px; font-size: 16px; }
+    h3 { margin: 12px 0 4px; font-size: 13px; color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    th, td { padding: 5px 4px; border-bottom: 1px solid var(--line); text-align: left; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
     footer {
-      max-width: 1160px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 0 20px 32px;
+      padding: 0 20px 28px;
       font-size: 12px;
       color: var(--muted);
     }
@@ -184,37 +190,45 @@
     <div class="controls">
       <button id="play-btn" class="btn primary">▶ 再生</button>
       <div class="slider-box">
-        <label for="age-slider" style="font-size:13px;font-weight:600;">年齢</label>
+        <label for="age-slider" style="font-size:13px;font-weight:700;">年齢</label>
         <input id="age-slider" type="range" min="0" max="17" step="1" value="4" />
         <span id="age-label" class="age-readout">20～24歳</span>
       </div>
-      <div style="display:flex;gap:6px;">
-        <button id="mode-tile" class="btn active">タイル地図</button>
-        <button id="mode-geo" class="btn">地理地図</button>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button id="mode-geo" class="btn active">地理地図</button>
+        <button id="mode-tile" class="btn">タイル地図</button>
+        <button id="reset-btn" class="btn">選択を解除（全国上位15本に戻す）</button>
       </div>
+    </div>
+
+    <div id="trend-banner" class="trend-banner">
+      <strong>この年齢の動き</strong> <span id="trend-text">読み込み中...</span>
     </div>
 
     <div class="grid">
       <section class="panel">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;">
-          <h2 id="map-title">都道府県の転入超過・転出超過</h2>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;margin-bottom:8px;">
+          <h2>円の大きさは移動者数、弧は主な流れ</h2>
           <span id="year-badge" style="font-size:12px;color:var(--muted);">読み込み中...</span>
         </div>
-        <div id="map-stage"></div>
+        <div id="stage-wrap">
+          <svg id="map-svg" viewBox="0 0 640 480"></svg>
+          <canvas id="flow-canvas" width="640" height="480"></canvas>
+        </div>
         <div class="legend">
           <span><i class="swatch" style="background:var(--inflow);"></i>転入超過</span>
           <span><i class="swatch" style="background:var(--outflow);"></i>転出超過</span>
           <span><i class="swatch" style="background:var(--intl);"></i>48番目のノード「海外」</span>
+          <span>円の面積 ＝ 移動者総数（転入＋転出）</span>
         </div>
-        <p class="note">年齢スライダーで切り替えると、都道府県の転入超過・転出超過と主な流れが変わります。数値は2024年の実測値で、滑らかに見せるための視覚遷移（0.8秒）のみを用いています。</p>
+        <p class="note">海外ノードは全年齢合計の実測値です（年齢別の公表なし）。海外の円は全年齢合計（約111万人）のため、大きさは上限で表示しています。</p>
       </section>
 
       <aside class="panel">
-        <h2 id="detail-title">都道府県を選んでください</h2>
-        <p id="detail-summary" style="font-size:13px;color:var(--muted);margin:0 0 10px;">
-          地図の都道府県をクリックすると、その年齢階級の転入元・転出先トップ5と、居住者の5年前の常住地構成が表示されます。
+        <h2 id="detail-title">東京都の20～24歳</h2>
+        <p id="detail-summary" style="font-size:12.5px;color:var(--muted);margin:0 0 8px;">
+          地図の都道府県をクリックすると、その年齢階級の転入元・転出先トップ5と、海外との出入りが表示されます。
         </p>
-        <p id="intl-note" class="note" style="display:none;">海外との出入りは年齢別の公表がないため、全年代合計（2024年）です。</p>
 
         <h3>転入元 トップ5（都道府県間）</h3>
         <table><thead><tr><th>転入元</th><th class="num">人数</th></tr></thead><tbody id="inflow-body"></tbody></table>
@@ -223,10 +237,10 @@
         <table><thead><tr><th>転出先</th><th class="num">人数</th></tr></thead><tbody id="outflow-body"></tbody></table>
 
         <h3>海外との出入り（全年代合計）</h3>
-        <table><thead><tr><th>区分</th><th class="num">人数</th></tr></thead><tbody id="intl-body"></tbody></table>
+        <table><thead><tr><th>区分</th><th class="num">人数</th></tr></thead><tbody id="overseas-body"></tbody></table>
 
         <h3>5年前の常住地構成（2020年国勢調査）</h3>
-        <table><thead><tr><th>5年前の常住地</th><th class="num">割合</th></tr></thead><tbody id="prev-body"></tbody></table>
+        <table><thead><tr><th>5年前の常住地</th><th class="num">割合</th></tr></thead><tbody id="birthplace-body"></tbody></table>
         <p class="note">出生地別の公表集計がないため、5年前にどこに住んでいたかで代用しています。2020年調査では移動状況「不詳」が多く、参考値として併記しています。</p>
       </aside>
     </div>
@@ -242,6 +256,7 @@
     </p>
     <p>
       <strong>読み方の注意</strong><br />
+      円の面積は移動者総数（転入＋転出）に比例し、色は転入超過・転出超過を表します。流れは、未選択時は全国の上位15本と海外の主要な流れ、都道府県選択時はその県の転入元・転出先トップ5です。
       転入超過は都道府県間の移動のみです。海外との出入りは年齢別の公表がないため、全年代合計（2024年）で表示しています。
       居住者の出身構成は、国勢調査に出生地別人口の公表集計がないため、2020年国勢調査の「5年前の常住地別人口（原数値）」で代用しています。
       都道府県の境界データは dataofjapan/land（japan.topojson）を利用しています。
@@ -253,176 +268,235 @@
   </footer>
 
   <script>
-    const AGE_GROUPS = [
-      "0～4歳","5～9歳","10～14歳","15～19歳","20～24歳","25～29歳",
-      "30～34歳","35～39歳","40～44歳","45～49歳","50～54歳","55～59歳",
-      "60～64歳","65～69歳","70～74歳","75～79歳","80～84歳","85歳以上"
-    ];
+    // 年齢5歳階級（実データのキーと完全一致させる。data/migration.json の ageGroups を優先する）
+    let AGE_GROUPS = ["0～4歳", "5～9歳", "10～14歳", "15～19歳", "20～24歳", "25～29歳", "30～34歳", "35～39歳", "40～44歳", "45～49歳", "50～54歳", "55～59歳", "60～64歳", "65～69歳", "70～74歳", "75～79歳", "80～84歳", "85歳以上"];
 
-    // 47都道府県 + 48番目のノード「海外」のタイル座標 (col, row)
-    const TILE_COORDS = [
-      {code:"01",name:"北海道",short:"北海",col:13,row:0},{code:"02",name:"青森県",short:"青森",col:12,row:2},
-      {code:"03",name:"岩手県",short:"岩手",col:13,row:2},{code:"04",name:"宮城県",short:"宮城",col:13,row:3},
-      {code:"05",name:"秋田県",short:"秋田",col:12,row:3},{code:"06",name:"山形県",short:"山形",col:12,row:4},
-      {code:"07",name:"福島県",short:"福島",col:13,row:4},{code:"08",name:"茨城県",short:"茨城",col:13,row:5},
-      {code:"09",name:"栃木県",short:"栃木",col:12,row:5},{code:"10",name:"群馬県",short:"群馬",col:11,row:5},
-      {code:"11",name:"埼玉県",short:"埼玉",col:11,row:6},{code:"12",name:"千葉県",short:"千葉",col:13,row:6},
-      {code:"13",name:"東京都",short:"東京",col:12,row:6},{code:"14",name:"神奈川県",short:"神奈川",col:12,row:7},
-      {code:"15",name:"新潟県",short:"新潟",col:11,row:4},{code:"16",name:"富山県",short:"富山",col:10,row:4},
-      {code:"17",name:"石川県",short:"石川",col:9,row:4},{code:"18",name:"福井県",short:"福井",col:9,row:5},
-      {code:"19",name:"山梨県",short:"山梨",col:11,row:7},{code:"20",name:"長野県",short:"長野",col:10,row:5},
-      {code:"21",name:"岐阜県",short:"岐阜",col:10,row:6},{code:"22",name:"静岡県",short:"静岡",col:11,row:8},
-      {code:"23",name:"愛知県",short:"愛知",col:10,row:7},{code:"24",name:"三重県",short:"三重",col:9,row:7},
-      {code:"25",name:"滋賀県",short:"滋賀",col:9,row:6},{code:"26",name:"京都府",short:"京都",col:8,row:6},
-      {code:"27",name:"大阪府",short:"大阪",col:8,row:7},{code:"28",name:"兵庫県",short:"兵庫",col:7,row:6},
-      {code:"29",name:"奈良県",short:"奈良",col:8,row:8},{code:"30",name:"和歌山県",short:"和歌山",col:7,row:8},
-      {code:"31",name:"鳥取県",short:"鳥取",col:6,row:6},{code:"32",name:"島根県",short:"島根",col:5,row:6},
-      {code:"33",name:"岡山県",short:"岡山",col:6,row:7},{code:"34",name:"広島県",short:"広島",col:5,row:7},
-      {code:"35",name:"山口県",short:"山口",col:4,row:7},{code:"36",name:"徳島県",short:"徳島",col:6,row:9},
-      {code:"37",name:"香川県",short:"香川",col:6,row:8},{code:"38",name:"愛媛県",short:"愛媛",col:5,row:8},
-      {code:"39",name:"高知県",short:"高知",col:5,row:9},{code:"40",name:"福岡県",short:"福岡",col:3,row:7},
-      {code:"41",name:"佐賀県",short:"佐賀",col:2,row:7},{code:"42",name:"長崎県",short:"長崎",col:1,row:7},
-      {code:"43",name:"熊本県",short:"熊本",col:2,row:8},{code:"44",name:"大分県",short:"大分",col:3,row:8},
-      {code:"45",name:"宮崎県",short:"宮崎",col:3,row:9},{code:"46",name:"鹿児島県",short:"鹿児島",col:2,row:9},
-      {code:"47",name:"沖縄県",short:"沖縄",col:1,row:10},{code:"99",name:"海外",short:"海外",col:0,row:3}
-    ];
+    // 47都道府県 + 48番目のノード「海外」。lon/lat は地理地図の円の目安位置、col/row はタイル地図の位置
+    const NODES = [{"code": "01", "name": "北海道", "short": "北海", "lon": 142.8, "lat": 43.2, "col": 13, "row": 0}, {"code": "02", "name": "青森県", "short": "青森", "lon": 140.7, "lat": 40.8, "col": 12, "row": 2}, {"code": "03", "name": "岩手県", "short": "岩手", "lon": 141.2, "lat": 39.6, "col": 13, "row": 2}, {"code": "04", "name": "宮城県", "short": "宮城", "lon": 140.9, "lat": 38.3, "col": 13, "row": 3}, {"code": "05", "name": "秋田県", "short": "秋田", "lon": 140.1, "lat": 39.7, "col": 12, "row": 3}, {"code": "06", "name": "山形県", "short": "山形", "lon": 140.2, "lat": 38.4, "col": 12, "row": 4}, {"code": "07", "name": "福島県", "short": "福島", "lon": 140.4, "lat": 37.4, "col": 13, "row": 4}, {"code": "08", "name": "茨城県", "short": "茨城", "lon": 140.4, "lat": 36.3, "col": 13, "row": 5}, {"code": "09", "name": "栃木県", "short": "栃木", "lon": 139.9, "lat": 36.7, "col": 12, "row": 5}, {"code": "10", "name": "群馬県", "short": "群馬", "lon": 139.0, "lat": 36.5, "col": 11, "row": 5}, {"code": "11", "name": "埼玉県", "short": "埼玉", "lon": 139.4, "lat": 35.9, "col": 11, "row": 6}, {"code": "12", "name": "千葉県", "short": "千葉", "lon": 140.2, "lat": 35.5, "col": 13, "row": 6}, {"code": "13", "name": "東京都", "short": "東京", "lon": 139.6, "lat": 35.7, "col": 12, "row": 6}, {"code": "14", "name": "神奈川県", "short": "神奈川", "lon": 139.4, "lat": 35.4, "col": 12, "row": 7}, {"code": "15", "name": "新潟県", "short": "新潟", "lon": 138.9, "lat": 37.5, "col": 11, "row": 4}, {"code": "16", "name": "富山県", "short": "富山", "lon": 137.2, "lat": 36.7, "col": 10, "row": 4}, {"code": "17", "name": "石川県", "short": "石川", "lon": 136.7, "lat": 36.8, "col": 9, "row": 4}, {"code": "18", "name": "福井県", "short": "福井", "lon": 136.2, "lat": 35.9, "col": 9, "row": 5}, {"code": "19", "name": "山梨県", "short": "山梨", "lon": 138.6, "lat": 35.6, "col": 11, "row": 7}, {"code": "20", "name": "長野県", "short": "長野", "lon": 138.0, "lat": 36.2, "col": 10, "row": 5}, {"code": "21", "name": "岐阜県", "short": "岐阜", "lon": 137.0, "lat": 35.8, "col": 10, "row": 6}, {"code": "22", "name": "静岡県", "short": "静岡", "lon": 138.3, "lat": 35.0, "col": 11, "row": 8}, {"code": "23", "name": "愛知県", "short": "愛知", "lon": 137.2, "lat": 35.0, "col": 10, "row": 7}, {"code": "24", "name": "三重県", "short": "三重", "lon": 136.5, "lat": 34.5, "col": 9, "row": 7}, {"code": "25", "name": "滋賀県", "short": "滋賀", "lon": 136.1, "lat": 35.2, "col": 9, "row": 6}, {"code": "26", "name": "京都府", "short": "京都", "lon": 135.5, "lat": 35.2, "col": 8, "row": 6}, {"code": "27", "name": "大阪府", "short": "大阪", "lon": 135.5, "lat": 34.6, "col": 8, "row": 7}, {"code": "28", "name": "兵庫県", "short": "兵庫", "lon": 134.8, "lat": 35.0, "col": 7, "row": 6}, {"code": "29", "name": "奈良県", "short": "奈良", "lon": 135.8, "lat": 34.3, "col": 8, "row": 8}, {"code": "30", "name": "和歌山県", "short": "和歌山", "lon": 135.4, "lat": 33.9, "col": 7, "row": 8}, {"code": "31", "name": "鳥取県", "short": "鳥取", "lon": 133.9, "lat": 35.4, "col": 6, "row": 6}, {"code": "32", "name": "島根県", "short": "島根", "lon": 132.4, "lat": 35.0, "col": 5, "row": 6}, {"code": "33", "name": "岡山県", "short": "岡山", "lon": 133.8, "lat": 34.8, "col": 6, "row": 7}, {"code": "34", "name": "広島県", "short": "広島", "lon": 132.8, "lat": 34.6, "col": 5, "row": 7}, {"code": "35", "name": "山口県", "short": "山口", "lon": 131.5, "lat": 34.2, "col": 4, "row": 7}, {"code": "36", "name": "徳島県", "short": "徳島", "lon": 134.3, "lat": 33.9, "col": 6, "row": 9}, {"code": "37", "name": "香川県", "short": "香川", "lon": 134.0, "lat": 34.2, "col": 6, "row": 8}, {"code": "38", "name": "愛媛県", "short": "愛媛", "lon": 132.8, "lat": 33.7, "col": 5, "row": 8}, {"code": "39", "name": "高知県", "short": "高知", "lon": 133.4, "lat": 33.5, "col": 5, "row": 9}, {"code": "40", "name": "福岡県", "short": "福岡", "lon": 130.6, "lat": 33.6, "col": 3, "row": 7}, {"code": "41", "name": "佐賀県", "short": "佐賀", "lon": 130.1, "lat": 33.3, "col": 2, "row": 7}, {"code": "42", "name": "長崎県", "short": "長崎", "lon": 129.8, "lat": 32.9, "col": 1, "row": 7}, {"code": "43", "name": "熊本県", "short": "熊本", "lon": 130.7, "lat": 32.7, "col": 2, "row": 8}, {"code": "44", "name": "大分県", "short": "大分", "lon": 131.5, "lat": 33.2, "col": 3, "row": 8}, {"code": "45", "name": "宮崎県", "short": "宮崎", "lon": 131.3, "lat": 32.1, "col": 3, "row": 9}, {"code": "46", "name": "鹿児島県", "short": "鹿児島", "lon": 130.5, "lat": 31.4, "col": 2, "row": 9}, {"code": "47", "name": "沖縄県", "short": "沖縄", "lon": 127.8, "lat": 26.3, "col": 1, "row": 10}, {"code": "99", "name": "海外", "short": "海外", "lon": 142.8, "lat": 30.2, "col": 12, "row": 10}];
 
-    let appData = null;
-    let selectedCode = "13";
-    let ageIdx = 4;
-    let mapMode = "tile";
-    let timer = null;
+    // 地理地図の投影。TopoJSONが読めれば国土に合わせた投影（fitSize）に切り替える
+    let geoProjection = d3.geoMercator().center([137.0, 36.2]).scale(1100).translate([320, 240]);
     let geoReady = false;
-    let geoLoading = false;
-    let geoCentroid = {};
-    let geoFeatures = [];
-
-    const svg = d3.select("#map-stage").append("svg").attr("viewBox", "0 0 640 480");
-    const flowLayer = svg.append("g");
-    const geoLayer = svg.append("g").style("display", "none");
+    const svg = d3.select("#map-svg");
+    const boundaryLayer = svg.append("g");
+    const arcLayer = svg.append("g");
     const nodeLayer = svg.append("g");
+    const canvas = document.getElementById("flow-canvas");
+    const ctx = canvas.getContext("2d");
 
-    function tilePos(d) {
-      return [d.col * 42 + 28, d.row * 40 + 28];
-    }
+    let appData = null;      // data/migration.json の生データ
+    let adapted = null;      // アダプタで作る派生データ（年齢別 転入・転出、海外）
+    let ageIdx = 4;
+    let mapMode = "geo"; // "geo" | "tile"
+    let selectedCode = null; // null = 未選択（全国上位15本＋海外）
+    let timer = null;
+    let activeFlows = [];
+    let currentPositions = new Map();
 
-    function nodePos(d) {
-      if (mapMode === "geo" && geoReady) {
-        if (d.code === "99") return [70, 430];
-        const c = geoCentroid[d.code];
-        if (c) return c;
+    // 円の半径（面積が移動者総数に比例する平方根スケール）。上限は実データの最大値から決める
+    let radiusScale = d3.scaleSqrt().domain([0, 210000]).range([5, 36]).clamp(true);
+
+    // ---- データアダプタ（実データの構造に合わせる）----
+    // 実データ: byAge[年齢] = { net: {県コード: 転入超過数}, flows: [{from, to, count}] }
+    //           intl = { in: {県コード: 国外からの転入}, out: {...}, totalIn, totalOut }
+    //           prevResidence[県コード] = [{code, label, count, pct}]
+    // Sparkのコードが想定した stats / overseasTotal / overseasByPref / ageNotes / birthplace は
+    // 実データに存在しないため、ここで派生データを作る（元データは書き換えない）。
+    function adaptData(json) {
+      const stats = {};
+      let maxTotal = 0;
+      for (const age of Object.keys(json.byAge)) {
+        const s = {};
+        for (const f of json.byAge[age].flows) {
+          if (!s[f.from]) s[f.from] = { inflow: 0, outflow: 0 };
+          if (!s[f.to]) s[f.to] = { inflow: 0, outflow: 0 };
+          s[f.from].outflow += f.count;
+          s[f.to].inflow += f.count;
+        }
+        stats[age] = s;
+        for (const c of Object.keys(s)) {
+          const t = s[c].inflow + s[c].outflow;
+          if (t > maxTotal) maxTotal = t;
+        }
       }
-      return tilePos(d);
+      const overseasByPref = {};
+      for (const c of Object.keys(json.intl.in || {})) {
+        overseasByPref[c] = { in: json.intl.in[c] || 0, out: (json.intl.out || {})[c] || 0 };
+      }
+      return {
+        stats,
+        maxTotal,
+        overseasTotal: (json.intl.totalIn || 0) + (json.intl.totalOut || 0),
+        overseasByPref
+      };
     }
 
-    function colorScale(net) {
-      if (net === undefined || net === null) return "#e2e8f0";
-      if (net >= 0) return d3.interpolateBlues(Math.min(1, 0.25 + net / 40000));
-      return d3.interpolateReds(Math.min(1, 0.25 + Math.abs(net) / 15000));
+    function computePositions(ageName, ageData) {
+      if (mapMode === "tile") {
+        const m = new Map();
+        NODES.forEach(n => m.set(n.code, { x: n.col * 42 + 34, y: n.row * 40 + 28, r: 17 }));
+        return m;
+      }
+      const ageStats = adapted ? adapted.stats[ageName] || {} : {};
+      const simNodes = NODES.map(n => {
+        let tx, ty;
+        if (n.code === "99") {
+          // 海外ノードは南東の余白に固定（緯度30.2度を投影すると枠外にはみ出すため）
+          tx = 540; ty = 430;
+        } else {
+          [tx, ty] = geoProjection([n.lon, n.lat]);
+        }
+        const st = ageStats[n.code] || {};
+        const total = n.code === "99"
+          ? (adapted ? adapted.overseasTotal : 0)
+          : ((st.inflow || 0) + (st.outflow || 0));
+        return { code: n.code, tx, ty, x: tx, y: ty, r: radiusScale(total) };
+      });
+      // 弱い衝突回避で大都市圏の重なりを逃がす
+      const sim = d3.forceSimulation(simNodes)
+        .force("x", d3.forceX(d => d.tx).strength(0.38))
+        .force("y", d3.forceY(d => d.ty).strength(0.38))
+        .force("collide", d3.forceCollide(d => d.r + 2).strength(0.85))
+        .stop();
+      for (let i = 0; i < 65; i++) sim.tick();
+      const m = new Map();
+      simNodes.forEach(s => m.set(s.code, { x: s.x, y: s.y, r: s.r }));
+      return m;
+    }
+
+    function bubbleColor(code, ageData) {
+      if (code === "99") return "#7c3aed";
+      const net = ageData.net?.[code] ?? 0;
+      if (net >= 0) return d3.interpolateBlues(Math.min(1, 0.35 + net / 35000));
+      return d3.interpolateReds(Math.min(1, 0.35 + Math.abs(net) / 15000));
+    }
+
+    function selectFlows(ageData) {
+      const flows = ageData.flows || [];
+      if (selectedCode) {
+        const ins = flows.filter(f => f.to === selectedCode).sort((a, b) => b.count - a.count).slice(0, 5);
+        const outs = flows.filter(f => f.from === selectedCode).sort((a, b) => b.count - a.count).slice(0, 5);
+        return [...ins, ...outs];
+      }
+      // 未選択・自動再生時：全国上位15本＋海外の主要な流れ
+      const domestic = flows.filter(f => f.from !== "99" && f.to !== "99").sort((a, b) => b.count - a.count).slice(0, 15);
+      // 年齢別フローに海外は含まれないため、全年代合計（intl）から方向別の上位4本を合成する
+      const ov = [];
+      if (adapted) {
+        for (const c of Object.keys(adapted.overseasByPref)) {
+          ov.push({ from: "99", to: c, count: adapted.overseasByPref[c].in });
+          ov.push({ from: c, to: "99", count: adapted.overseasByPref[c].out });
+        }
+      }
+      ov.sort((a, b) => b.count - a.count);
+      return [...domestic, ...ov.slice(0, 4)];
+    }
+
+    // 年齢別の一言注釈：ageNotes は実データにないため、転入超過の実測値から自動生成する
+    function updateTrendBanner(ageName, ageData) {
+      const entries = Object.entries(ageData.net || {});
+      if (!entries.length) {
+        document.getElementById("trend-text").textContent = `${ageName}のデータがありません。`;
+        return;
+      }
+      entries.sort((a, b) => b[1] - a[1]);
+      const topIn = NODES.find(n => n.code === entries[0][0])?.name || entries[0][0];
+      const topOut = NODES.find(n => n.code === entries[entries.length - 1][0])?.name || entries[entries.length - 1][0];
+      document.getElementById("trend-text").textContent =
+        `この年齢では、${topIn}が+${entries[0][1].toLocaleString()}人で最も転入超過、${topOut}が${entries[entries.length - 1][1].toLocaleString()}人で最も転出超過です。`;
     }
 
     function render() {
       const ageName = AGE_GROUPS[ageIdx];
       document.getElementById("age-label").textContent = ageName;
       const ageData = appData?.byAge?.[ageName] || { net: {}, flows: [] };
+      currentPositions = computePositions(ageName, ageData);
+      updateTrendBanner(ageName, ageData);
+      boundaryLayer.style("display", mapMode === "geo" ? null : "none");
 
-      nodeLayer.style("display", mapMode === "tile" ? null : "none");
-      geoLayer.style("display", mapMode === "geo" ? null : "none");
+      const nodes = nodeLayer.selectAll("g.node").data(NODES, d => d.code);
+      const enter = nodes.enter().append("g").attr("class", "node")
+        .on("click", (_, d) => { selectedCode = (selectedCode === d.code ? null : d.code); render(); });
+      enter.append("circle").attr("class", "bubble");
+      enter.append("rect").attr("class", "tile-rect").attr("width", 38).attr("height", 34).attr("rx", 6).attr("x", -19).attr("y", -17);
+      enter.append("text").attr("class", "node-label").attr("dy", "0.35em").text(d => d.short);
 
-      const tiles = nodeLayer.selectAll("g.node").data(TILE_COORDS, d => d.code);
-      const enter = tiles.enter().append("g").attr("class", "node")
-        .on("click", (_, d) => { selectedCode = d.code; render(); });
-
-      enter.append("rect").attr("class", "pref-tile").attr("width", 38).attr("height", 36).attr("rx", 6);
-      enter.append("text").attr("class", "pref-label").attr("x", 19).attr("y", 22).text(d => d.short);
-
-      const merged = enter.merge(tiles);
+      const merged = enter.merge(nodes);
       merged.transition().duration(800)
         .attr("transform", d => {
-          const [x, y] = tilePos(d);
-          return `translate(${x - 19}, ${y - 18})`;
+          const p = currentPositions.get(d.code);
+          return `translate(${p.x}, ${p.y})`;
         });
 
-      merged.select("rect")
+      merged.select("circle.bubble")
+        .style("display", mapMode === "geo" ? null : "none")
         .classed("selected", d => d.code === selectedCode)
         .transition().duration(800)
-        .attr("fill", d => d.code === "99" ? "#ede9fe" : colorScale(ageData.net?.[d.code] || 0));
+        .attr("r", d => currentPositions.get(d.code).r)
+        .attr("fill", d => bubbleColor(d.code, ageData));
 
-      // 地理地図レイヤー（TopoJSON）
-      if (mapMode === "geo" && geoReady) {
-        const paths = geoLayer.selectAll("path.geo-pref").data(geoFeatures, d => d.properties.id);
-        const pathEnter = paths.enter().append("path").attr("class", "geo-pref")
-          .on("click", (_, d) => { selectedCode = String(d.properties.id).padStart(2, "0"); render(); });
-        pathEnter.append("title").text(d => d.properties.nam_ja);
-        pathEnter.merge(paths)
-          .classed("selected", d => String(d.properties.id).padStart(2, "0") === selectedCode)
-          .transition().duration(800)
-          .attr("d", d => d._pathD)
-          .attr("fill", d => colorScale(ageData.net?.[String(d.properties.id).padStart(2, "0")] || 0));
-        const labels = geoLayer.selectAll("text.geo-label").data(
-          geoFeatures.filter(d => d._area > 500), d => d.properties.id);
-        labels.enter().append("text").attr("class", "geo-label")
-          .merge(labels)
-          .transition().duration(800)
-          .attr("x", d => d._centroid[0])
-          .attr("y", d => d._centroid[1] + 3)
-          .text(d => {
-            const t = TILE_COORDS.find(x => x.code === String(d.properties.id).padStart(2, "0"));
-            return t ? t.short : "";
-          });
-        labels.exit().remove();
-        // 海外ノード（地理地図では左下に配置）
-        const overseas = geoLayer.selectAll("g.overseas").data(["99"]);
-        const ovEnter = overseas.enter().append("g").attr("class", "overseas")
-          .on("click", () => { selectedCode = "99"; render(); });
-        ovEnter.append("circle").attr("r", 22).attr("fill", "#ede9fe").attr("stroke", "#fff").attr("stroke-width", 1.5)
-          .classed("selected", false);
-        ovEnter.append("text").attr("class", "overseas-label").attr("y", 3).text("海外");
-        overseas.merge(ovEnter)
-          .attr("transform", "translate(70, 430)")
-          .select("circle")
-          .attr("stroke", selectedCode === "99" ? "#0f172a" : "#fff")
-          .attr("stroke-width", selectedCode === "99" ? 2.4 : 1.5);
-      } else {
-        geoLayer.selectAll("*").remove();
-      }
+      merged.select("rect.tile-rect")
+        .style("display", mapMode === "tile" ? null : "none")
+        .classed("selected", d => d.code === selectedCode)
+        .transition().duration(800)
+        .attr("fill", d => bubbleColor(d.code, ageData));
 
-      const flows = (ageData.flows || [])
-        .filter(f => f.from === selectedCode || f.to === selectedCode)
-        .sort((a, b) => b.count - a.count)
-        .slice(0, 12);
-      const coordMap = new Map(TILE_COORDS.map(d => [d.code, nodePos(d)]));
-
-      const arcs = flowLayer.selectAll("path.flow-arc").data(flows, d => `${d.from}-${d.to}`);
+      activeFlows = selectFlows(ageData);
+      const arcs = arcLayer.selectAll("path.flow-arc").data(activeFlows, d => `${d.from}-${d.to}`);
       arcs.exit().remove();
       arcs.enter().append("path").attr("class", "flow-arc")
         .merge(arcs)
         .transition().duration(800)
-        .attr("stroke", d => (d.from === "99" || d.to === "99") ? "#7c3aed" : (d.to === selectedCode ? "#0f766e" : "#be123c"))
-        .attr("stroke-width", d => Math.max(1.5, Math.min(8, Math.sqrt(d.count || 0) / 14)))
+        .attr("stroke", d => (d.from === "99" || d.to === "99") ? "#7c3aed" : (selectedCode && d.to === selectedCode ? "#0f766e" : (selectedCode && d.from === selectedCode ? "#be123c" : "#1a73e8")))
+        .attr("stroke-opacity", selectedCode ? 0.55 : 0.28)
+        .attr("stroke-width", d => Math.max(1.2, Math.min(6, Math.sqrt(d.count || 0) / 16)))
         .attr("d", d => {
-          const p1 = coordMap.get(d.from) || [30, 140];
-          const p2 = coordMap.get(d.to) || [300, 200];
-          const mx = (p1[0] + p2[0]) / 2;
-          const my = (p1[1] + p2[1]) / 2 - 28;
-          return `M${p1[0]},${p1[1]} Q${mx},${my} ${p2[0]},${p2[1]}`;
+          const p1 = currentPositions.get(d.from);
+          const p2 = currentPositions.get(d.to);
+          if (!p1 || !p2) return "";
+          const mx = (p1.x + p2.x) / 2;
+          const my = (p1.y + p2.y) / 2 - 26;
+          return `M${p1.x},${p1.y} Q${mx},${my} ${p2.x},${p2.y}`;
         });
 
       renderDetails(ageData);
     }
 
+    // 粒子を軽量Canvasでアニメーションさせる
+    let tick = 0;
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      tick = (tick + 0.012) % 1;
+      for (const f of activeFlows) {
+        const p1 = currentPositions.get(f.from);
+        const p2 = currentPositions.get(f.to);
+        if (!p1 || !p2) continue;
+        const mx = (p1.x + p2.x) / 2;
+        const my = (p1.y + p2.y) / 2 - 26;
+        const count = Math.max(1, Math.min(4, Math.round(Math.sqrt(f.count || 100) / 35)));
+        ctx.fillStyle = (f.from === "99" || f.to === "99") ? "#7c3aed" : (selectedCode && f.to === selectedCode ? "#0f766e" : (selectedCode && f.from === selectedCode ? "#be123c" : "#1a73e8"));
+        for (let i = 0; i < count; i++) {
+          const t = (tick + i / count) % 1;
+          const x = (1 - t) * (1 - t) * p1.x + 2 * (1 - t) * t * mx + t * t * p2.x;
+          const y = (1 - t) * (1 - t) * p1.y + 2 * (1 - t) * t * my + t * t * p2.y;
+          ctx.beginPath();
+          ctx.arc(x, y, selectedCode ? 3.0 : 2.3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    requestAnimationFrame(animateParticles);
+
     function renderDetails(ageData) {
-      const target = TILE_COORDS.find(d => d.code === selectedCode);
-      const ageName = AGE_GROUPS[ageIdx];
-      document.getElementById("detail-title").textContent = `${target ? target.name : selectedCode}の${ageName}`;
+      const code = selectedCode || "13";
+      const target = NODES.find(d => d.code === code);
+      document.getElementById("detail-title").textContent = `${target ? target.name : code}の${AGE_GROUPS[ageIdx]}`;
       const flows = ageData.flows || [];
-      const nameOf = c => TILE_COORDS.find(x => x.code === c)?.name || c;
+      const nameOf = c => NODES.find(x => x.code === c)?.name || c;
       const intl = appData?.intl || { in: {}, out: {} };
-      const isOverseas = selectedCode === "99";
 
-      document.getElementById("intl-note").style.display = isOverseas ? "block" : "none";
-
-      if (isOverseas) {
+      if (code === "99") {
         // 海外ノード：都道府県との出入り（全年代合計）をトップ5で表示
         const inTop = Object.entries(intl.in).sort((a, b) => b[1] - a[1]).slice(0, 5);
         const outTop = Object.entries(intl.out).sort((a, b) => b[1] - a[1]).slice(0, 5);
@@ -434,19 +508,19 @@
         document.getElementById("outflow-body").innerHTML = inTop.length
           ? inTop.map(([c, n]) => `<tr><td>${nameOf(c)}</td><td class="num">${n.toLocaleString()}人</td></tr>`).join("")
           : `<tr><td colspan="2" style="color:var(--muted);">データがありません</td></tr>`;
-        document.getElementById("intl-body").innerHTML =
+        document.getElementById("overseas-body").innerHTML =
           `<tr><td>国外からの転入（全国・全年代）</td><td class="num">${(intl.totalIn || 0).toLocaleString()}人</td></tr>` +
           `<tr><td>国外への転出（全国・全年代）</td><td class="num">${(intl.totalOut || 0).toLocaleString()}人</td></tr>`;
-        document.getElementById("prev-body").innerHTML =
+        document.getElementById("birthplace-body").innerHTML =
           `<tr><td colspan="2" style="color:var(--muted);">「海外」に居住者の構成はありません</td></tr>`;
         return;
       }
 
-      const inflows = flows.filter(f => f.to === selectedCode).sort((a, b) => b.count - a.count).slice(0, 5);
-      const outflows = flows.filter(f => f.from === selectedCode).sort((a, b) => b.count - a.count).slice(0, 5);
-      const inTotal = flows.filter(f => f.to === selectedCode).reduce((s, f) => s + f.count, 0);
-      const outTotal = flows.filter(f => f.from === selectedCode).reduce((s, f) => s + f.count, 0);
-      const net = ageData.net?.[selectedCode] ?? 0;
+      const inflows = flows.filter(f => f.to === code).sort((a, b) => b.count - a.count).slice(0, 5);
+      const outflows = flows.filter(f => f.from === code).sort((a, b) => b.count - a.count).slice(0, 5);
+      const inTotal = flows.filter(f => f.to === code).reduce((s, f) => s + f.count, 0);
+      const outTotal = flows.filter(f => f.from === code).reduce((s, f) => s + f.count, 0);
+      const net = ageData.net?.[code] ?? 0;
       document.getElementById("detail-summary").textContent =
         `${net >= 0 ? "転入超過" : "転出超過"} ${Math.abs(net).toLocaleString()}人（都道府県間転入 ${inTotal.toLocaleString()}人・転出 ${outTotal.toLocaleString()}人）`;
 
@@ -458,97 +532,85 @@
         ? outflows.map(r => `<tr><td>${nameOf(r.to)}</td><td class="num">${r.count.toLocaleString()}人</td></tr>`).join("")
         : `<tr><td colspan="2" style="color:var(--muted);">この年齢階級の転出はありません</td></tr>`;
 
-      document.getElementById("intl-body").innerHTML =
-        `<tr><td>国外からの転入（全年代合計）</td><td class="num">${(intl.in[selectedCode] || 0).toLocaleString()}人</td></tr>` +
-        `<tr><td>国外への転出（全年代合計）</td><td class="num">${(intl.out[selectedCode] || 0).toLocaleString()}人</td></tr>`;
+      const ov = adapted ? adapted.overseasByPref[code] : null;
+      document.getElementById("overseas-body").innerHTML = ov
+        ? `<tr><td>国外からの転入（全年代合計）</td><td class="num">${(ov.in || 0).toLocaleString()}人</td></tr>
+           <tr><td>国外への転出（全年代合計）</td><td class="num">${(ov.out || 0).toLocaleString()}人</td></tr>`
+        : `<tr><td colspan="2" style="color:var(--muted);">データがありません</td></tr>`;
 
-      const prev = appData?.prevResidence?.[selectedCode] || [];
-      document.getElementById("prev-body").innerHTML = prev.length
+      const prev = appData?.prevResidence?.[code] || [];
+      document.getElementById("birthplace-body").innerHTML = prev.length
         ? prev.map(r => `<tr><td>${r.label}</td><td class="num">${r.pct}%（${r.count.toLocaleString()}人）</td></tr>`).join("")
         : `<tr><td colspan="2" style="color:var(--muted);">データがありません</td></tr>`;
     }
 
-    function loadGeo() {
-      if (geoReady || geoLoading) return Promise.resolve(geoReady);
-      geoLoading = true;
+    // 都道府県の境界線だけを描く（塗りなし）。読めなければ地理地図は円だけの表示になる
+    function loadBoundaries() {
       return fetch("data/japan.topojson")
         .then(r => { if (!r.ok) throw new Error("topojson not found"); return r.json(); })
         .then(topo => {
           const geojson = topojson.feature(topo, topo.objects.japan);
-          const projection = d3.geoMercator().fitSize([640, 480], geojson);
-          const path = d3.geoPath(projection);
-          geoFeatures = geojson.features.map(f => {
-            const code = String(f.properties.id).padStart(2, "0");
-            const centroid = path.centroid(f);
-            geoCentroid[code] = centroid;
-            return Object.assign({}, f, { _pathD: path(f), _centroid: centroid, _area: path.area(f) });
-          });
+          geoProjection = d3.geoMercator().fitSize([640, 480], geojson);
+          const path = d3.geoPath(geoProjection);
+          boundaryLayer.selectAll("path.boundary").data(geojson.features).enter().append("path")
+            .attr("class", "boundary")
+            .attr("d", d => path(d));
           geoReady = true;
-          geoLoading = false;
+          render();
           return true;
         })
-        .catch(err => {
-          geoLoading = false;
+        .catch(() => {
           const notice = document.getElementById("data-notice");
           notice.style.display = "block";
-          notice.textContent = "地理地図の境界データ（data/japan.topojson）を読み込めませんでした。タイル地図で表示しています。";
+          notice.textContent = "地理地図の境界データ（data/japan.topojson）を読み込めませんでした。円だけの表示になります。";
           return false;
         });
     }
 
-    document.getElementById("age-slider").addEventListener("input", e => {
-      ageIdx = Number(e.target.value);
-      render();
-    });
-
+    document.getElementById("age-slider").addEventListener("input", e => { ageIdx = Number(e.target.value); render(); });
     document.getElementById("play-btn").addEventListener("click", () => {
       const btn = document.getElementById("play-btn");
-      if (timer) {
-        clearInterval(timer);
-        timer = null;
-        btn.textContent = "▶ 再生";
-      } else {
+      if (timer) { clearInterval(timer); timer = null; btn.textContent = "▶ 再生"; }
+      else {
         btn.textContent = "■ 停止";
         timer = setInterval(() => {
           ageIdx = (ageIdx + 1) % AGE_GROUPS.length;
           document.getElementById("age-slider").value = ageIdx;
           render();
-        }, 1200);
+        }, 1250);
       }
     });
-
+    document.getElementById("mode-geo").addEventListener("click", () => {
+      mapMode = "geo";
+      document.getElementById("mode-geo").classList.add("active");
+      document.getElementById("mode-tile").classList.remove("active");
+      render();
+    });
     document.getElementById("mode-tile").addEventListener("click", () => {
       mapMode = "tile";
       document.getElementById("mode-tile").classList.add("active");
       document.getElementById("mode-geo").classList.remove("active");
       render();
     });
-    document.getElementById("mode-geo").addEventListener("click", () => {
-      loadGeo().then(ok => {
-        if (!ok) {
-          document.getElementById("mode-tile").classList.add("active");
-          document.getElementById("mode-geo").classList.remove("active");
-          return;
-        }
-        mapMode = "geo";
-        document.getElementById("mode-geo").classList.add("active");
-        document.getElementById("mode-tile").classList.remove("active");
-        render();
-      });
-    });
+    document.getElementById("reset-btn").addEventListener("click", () => { selectedCode = null; render(); });
 
     fetch("data/migration.json")
       .then(r => { if (!r.ok) throw new Error("not found"); return r.json(); })
       .then(json => {
         appData = json;
-        document.getElementById("year-badge").textContent = `対象年次 ${json.meta?.targetYear || "―"}年（e-Stat・実測値）`;
+        if (Array.isArray(json.ageGroups) && json.ageGroups.length === 18) AGE_GROUPS = json.ageGroups;
+        adapted = adaptData(json);
+        // 半径スケールの上限を実データの最大値に合わせる（10,000単位で切り上げ）
+        radiusScale = d3.scaleSqrt().domain([0, Math.ceil(adapted.maxTotal / 10000) * 10000]).range([5, 36]).clamp(true);
+        document.getElementById("year-badge").textContent = `対象年次 ${json.meta?.targetYear || "2024"}年（e-Stat・実測値）`;
+        loadBoundaries();
         render();
       })
       .catch(() => {
+        document.getElementById("year-badge").textContent = "対象年次: data/migration.json 未生成";
         const notice = document.getElementById("data-notice");
         notice.style.display = "block";
         notice.textContent = "data/migration.json が見つかりません。build_migration_data.py を実行して e-Stat の実測データから生成してください。";
-        document.getElementById("year-badge").textContent = "対象年次: data/migration.json 未生成";
         render();
       });
   </script>
